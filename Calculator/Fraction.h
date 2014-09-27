@@ -16,7 +16,8 @@
 @end
 @implementation Fraction {
     int numerator;
-    int denominator; }
+    int denominator;
+}
 
 -(void) print {
     NSLog (@" %i/%i ", numerator, denominator); }

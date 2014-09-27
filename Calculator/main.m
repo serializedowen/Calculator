@@ -5,7 +5,7 @@
 //  Created by Owen Wang on 2014-09-11.
 //  Copyright (c) 2014 OwenInc. All rights reserved.
 //
-#import "Fraction.m"
+#import "Fraction.h"
 #import <Foundation/Foundation.h>
 
 @interface calculator : NSObject
@@ -17,12 +17,12 @@
 -(double) accumulator;
 // arithmetic methods
 -(double) add: (double) value;
--(double) subtract: (double) value;
+-(double) substract: (double) value;
 -(double) multiply: (double) value;
 -(double) divide: (double) value;
 
 -(double) changeSign; // change sign of accumulator
--(double) reciprocal; // 1/accumulator
+//-(double) reciprocal; // 1/accumulator
 -(double) xSquared; // accumulator squared
 
 
@@ -30,20 +30,37 @@
 -(int) factorial;
 
 @end
+
+
 @implementation calculator
 {
     double accumulator;
 }
+
 -(void) clear
 {
     accumulator = 0;
 }
+
 -(void) setAccumulator:(double)value
 {
     accumulator = value;
 }
+
 -(double) accumulator
 {
+    return accumulator;
+}
+
+-(double) divide:(double)value
+{
+    accumulator = accumulator / value;
+    return accumulator;
+}
+
+-(double) multiply:(double)value
+{
+    accumulator = accumulator * value;
     return accumulator;
 }
 
@@ -52,6 +69,7 @@
     accumulator -= value;
     return accumulator;
 }
+
 -(double) add:(double)value
 {
     accumulator += value;
@@ -60,6 +78,12 @@
 -(double) changeSign
 {
     accumulator = -accumulator;
+    return accumulator;
+}
+
+-(double) xSquared
+{
+    accumulator *= accumulator;
     return accumulator;
 }
 
@@ -83,24 +107,18 @@
 
 int main(int argc, const char * argv[])
 {
-
     @autoreleasepool {
+        Fraction *aFraction = [[Fraction alloc] init];
+        Fraction *bFraction = [[Fraction alloc] init];
+        [aFraction setNumerator: 1]; // 1st fraction is 1/4
+        [aFraction setDenominator: 4];
+        [aFraction print];
+        NSLog (@" =");
+        NSLog (@"%g", [aFraction convertToNum]);
         
-        // insert code here...
-        @autoreleasepool {
-            Fraction *aFraction = [[Fraction alloc] init];
-            Fraction *bFraction = [[Fraction alloc] init];
-            [aFraction setNumerator: 1]; // 1st fraction is 1/4
-            [aFraction setDenominator: 4];
-            [aFraction print];
-            NSLog (@" =");
-            NSLog (@"%g", [aFraction convertToNum]);
-            
-            [bFraction print]; // never assigned a value
-            NSLog (@" =");
-            NSLog (@"%g", [bFraction convertToNum]);
-        }
-        
+        [bFraction print]; // never assigned a value
+        NSLog (@" =");
+        NSLog (@"%g", [bFraction convertToNum]);
     }
     return 0;
 }
